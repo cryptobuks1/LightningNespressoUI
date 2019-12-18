@@ -209,7 +209,7 @@ const deliverCoffee = function (invoice, clientIdFromInvoice) {
       })
   })
     .catch((error) => {
-      console.log(error)
+      console.error(error)
       notifyClientDeliveryFailure(error, clientIdFromInvoice)
       retryDelivery = 1
     })
