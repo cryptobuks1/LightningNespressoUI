@@ -2,7 +2,7 @@ import express from 'express'
 import expressWs from 'express-ws'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import {Invoice, GetInfoResponse, Readable} from '@radar/lnrpc'
+import {Invoice, GetInfoResponse} from '@radar/lnrpc'
 import {randomBytes} from 'crypto'
 import env from './env'
 import {node, initNode} from './node'
@@ -241,7 +241,7 @@ const retryCreateInvoiceStream = async function(error: Error) {
 const createLndInvoiceStream = async function() {
   console.log('Opening LND invoice stream...')
   // SubscribeInvoices returns a uni-directional stream (server -> client) for notifying the client of newly added/settled invoices
-  let lndInvoicesStream = await node.subscribeInvoices() as any as Readable<Invoice>
+  let lndInvoicesStream = await node.subscribeInvoices()
   lndInvoicesStream
     .on('data', async (invoice: Invoice) => {
       // Skip unpaid / irrelevant invoice updates
